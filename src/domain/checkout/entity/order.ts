@@ -1,5 +1,6 @@
 import OrderItem from "./order_item";
 export default class Order {
+
   private _id: string;
   private _customerId: string;
   private _items: OrderItem[];
@@ -45,5 +46,33 @@ export default class Order {
 
   total(): number {
     return this._items.reduce((acc, item) => acc + item.total(), 0);
+  }
+
+  addItem(orderItem2: OrderItem) {
+
+    if (this._items == null) {
+      this._items = [];
+    }
+
+    if (this._items.some((item) => item.id === orderItem2.id)) {
+      this._items = this._items.map((item) => {
+        if (item.id === orderItem2.id) {
+          return new OrderItem(
+            item.id,
+            orderItem2.name,
+            orderItem2.price,
+            orderItem2.productId,
+            orderItem2.quantity
+          );
+        }
+        return item;
+      });
+    }
+    else {
+      this._items.push(orderItem2);
+    }
+    this._total = this.total();
+    this.validate();
+
   }
 }
