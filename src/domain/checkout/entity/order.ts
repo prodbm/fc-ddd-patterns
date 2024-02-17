@@ -49,7 +49,6 @@ export default class Order {
   }
 
   addItem(orderItem2: OrderItem) {
-
     if (this._items == null) {
       this._items = [];
     }
@@ -73,6 +72,5 @@ export default class Order {
     }
     this._total = this.total();
     this.validate();
-
   }
 }
